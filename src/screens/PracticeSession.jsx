@@ -185,9 +185,9 @@ export default function PracticeSession({ topicId, grade, onComplete, onExit }) 
             </div>
           )}
 
-          {/* Question */}
+          {/* Question — never show the spoiler display text for clock problems */}
           <div className="text-2xl font-extrabold text-gray-800 mb-4 leading-snug">
-            {problem.display || problem.question}
+            {problem.isClockProblem ? problem.question : (problem.display || problem.question)}
           </div>
 
           {/* Reveal answer */}
