@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Nunito', 'Trebuchet MS', sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
+    min-height: 100vh;
+  }
+  #root {
+    min-height: 100vh;
+  }
+}
