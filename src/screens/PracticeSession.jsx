@@ -22,6 +22,7 @@ export default function PracticeSession({ topicId, grade, onComplete, onExit }) 
   const [mascotMood, setMascotMood] = useState('idle')
   const [revealed, setRevealed] = useState(false)
   const [prevProblemKey, setPrevProblemKey] = useState(null)
+  const [answered, setAnswered] = useState(0)
 
   const tier = session?.tier || 1
 
@@ -73,6 +74,7 @@ export default function PracticeSession({ topicId, grade, onComplete, onExit }) 
     if (correct) {
       setFeedback('correct')
       setMascotMood('celebrate')
+      setAnswered(n => n + 1)
       setTimeout(() => {
         recordAnswer(true, assisted)
         nextProblem()
@@ -85,6 +87,7 @@ export default function PracticeSession({ topicId, grade, onComplete, onExit }) 
       setFeedback('reveal')
       setRevealed(true)
       setMascotMood('thinking')
+      setAnswered(n => n + 1)
       setTimeout(() => {
         recordAnswer(false, assisted)
         nextProblem()
@@ -102,7 +105,7 @@ export default function PracticeSession({ topicId, grade, onComplete, onExit }) 
     checkAnswer(fillInput)
   }
 
-  const progress = (session.attempts / session.total) * 100
+  const progress = (answered / session.total) * 100
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-indigo-50 to-blue-50">
@@ -118,11 +121,11 @@ export default function PracticeSession({ topicId, grade, onComplete, onExit }) 
             <div
               className="bg-indigo-500 h-4 rounded-full transition-all duration-500"
               style={{ width: `${progress}%` }}
-              aria-label={`Progress: ${session.attempts} of ${session.total}`}
+              aria-label={`Progress: ${answered} of ${session.total}`}
             />
           </div>
           <div className="text-xs text-center text-gray-500 mt-0.5">
-            {session.attempts} / {session.total} problems
+            {answered} / {session.total} problems
           </div>
         </div>
         <button
